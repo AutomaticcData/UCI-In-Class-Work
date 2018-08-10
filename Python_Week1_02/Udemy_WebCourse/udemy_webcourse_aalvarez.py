@@ -62,7 +62,9 @@ with open(csvpath, newline='', encoding="utf8") as csvfile:
     #get the number of items in the header list --> len(csv_header)
 
     #new csv Header
-    csv_header = ["Title","Price","Subscriber_Count","Number_Of_Reviews","Course_Length"]
+    #csv_header = ["Title","Price","Subscriber_Count","Number_Of_Reviews","Course_Length"]
+    #bonus csv Header
+    csv_header = ["Title","Price","Subscriber_Count","Number_Of_Reviews","Course_Length","Percent_Of_Subscribers_Reviews"]
 
     #print out the header for testing purposes****
     #print(csv_header)
@@ -78,6 +80,9 @@ with open(csvpath, newline='', encoding="utf8") as csvfile:
     col_numreview = []
     col_courselen = []
 
+    #bonus contents
+    col_percentleftreview = []
+
     #iterate through each row in the file, After the header
     for row in csvreader:
         #assign the slice value of the lists to its corresponding list
@@ -86,6 +91,32 @@ with open(csvpath, newline='', encoding="utf8") as csvfile:
         col_subcount.append(row[5])
         col_numreview.append(row[6])
         col_courselen.append(row[9])
+
+        """Bonus
+        Find the percent of subscribers that have also left a review on the course. Include this in your final output.
+        Parse the string associated with course length, such that we store it as an integer instead of a string.
+        (i.e. "4 hours" should be converted to 4).
+        """
+        #for the first part we divide the number of reviews which is Row[6]
+        #by the number of subscribers Row[5] and multiply 100, then round 2 decimal places
+
+        num_revs = row[6]
+        num_subs = row[5]
+        percent_subs = 0.00
+
+
+        if (int(num_revs) < 1) or (int(num_subs) < 1):
+            percent_subs = 0
+            col_percentleftreview.append(percent_subs)
+        else:
+            percent_subs = round((int(num_revs)/int(num_subs) * 100),2)
+            col_percentleftreview.append(percent_subs)
+
+        #col_percentleftreview.append(str(5))
+
+        """
+            End Bonus
+        """
 
         #strCurrent = str(row[0])
         #print(strCurrent)
@@ -101,7 +132,10 @@ with open(csvpath, newline='', encoding="utf8") as csvfile:
         #*****************************************************************************************************
 
     #zip all of the above lists into tuples
-    csv_body = zip(col_title,col_price,col_subcount,col_numreview,col_courselen)
+    #csv_body = zip(col_title,col_price,col_subcount,col_numreview,col_courselen)
+
+    #updating for bonus content
+    csv_body = zip(col_title,col_price,col_subcount,col_numreview,col_courselen,col_percentleftreview)
 
     #set a variable for the file path to save the csv
     csv_file = os.path.join("udemy_output_aalvarez.csv")
