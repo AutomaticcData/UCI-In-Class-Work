@@ -90,7 +90,11 @@ with open(csvpath, newline='', encoding="utf8") as csvfile:
         col_price.append(row[4])
         col_subcount.append(row[5])
         col_numreview.append(row[6])
-        col_courselen.append(row[9])
+
+        #updating for bonus content
+        #col_courselen.append(row[9])
+        parse_courselen = str(row[9]).split(" ")
+        col_courselen.append(parse_courselen[0])
 
         """Bonus
         Find the percent of subscribers that have also left a review on the course. Include this in your final output.
