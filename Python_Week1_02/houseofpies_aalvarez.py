@@ -164,3 +164,7 @@ pie_pic += "       \__\|\n"
 pie_pic += " \n"
 
 print(pie_pic)
+
+#added a closing input to prevent script from exiting automatically in python shell
+#https://stackoverflow.com/questions/3591807/how-can-i-stop-python-exe-from-closing-immediately-after-i-get-an-output
+k = input("Press a key to exit")
